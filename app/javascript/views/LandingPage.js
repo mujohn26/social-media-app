@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React,{useEffect, useState} from 'react';
 import '../assets/styles/homePage.scss';
 import ChatIcon from '../assets/images/chat.png';
 import Vector1Icon from '../assets/images/vecto1.png';
@@ -10,6 +10,12 @@ import { Modal } from 'semantic-ui-react'
 
 const LandingPage = () => {
     const [open, setOpen] = useState(false)
+
+    useEffect(() => {
+        if (window.location.pathname == '/signup') {
+            setOpen(true)
+        }
+    },[])
     return (
         <>
             <Modal
