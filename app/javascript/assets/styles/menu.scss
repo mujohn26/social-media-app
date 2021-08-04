@@ -1,0 +1,16 @@
+.menu-container {
+	display: flex;
+	font-family: Poppins;
+	font-style: normal;
+	font-weight: normal;
+	font-size: 15px;
+	line-height: 26px;
+}
+.menu-container div a{
+	margin-left: 15%;
+    cursor: pointer;
+}
+
+a:hover{
+border-bottom: 1px solid black;
+}
