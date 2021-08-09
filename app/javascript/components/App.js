@@ -8,7 +8,7 @@ function App() {
             <div>
             <Switch>
                 <Route exact path="/" component={LandingPage} />
-                <Route exact path="/signup" component={LandingPage} />
+                <Route exact path="/signup" component={() => { return <LandingPage showSignup={true}/> }} />
             </Switch>
             </div>
     );

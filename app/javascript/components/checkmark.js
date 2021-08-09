@@ -3,12 +3,12 @@ import CheckMarkIcon from '../assets/images/checkmark.png';
 const styledContainer = {
     display: 'flex',
     flexDirection: 'row',
-    width: '200px'
+    width: '250px'
 };
 
 const styledDesc = {
     fontFamily: 'Poppins',
-    fontDize: '20px',
+    fontSize: '20px',
     lineHeight: '26px',
     color: 'rgba(0, 0, 0, 0.33)',
     marginLeft: '2%',

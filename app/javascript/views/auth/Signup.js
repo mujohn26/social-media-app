@@ -3,6 +3,7 @@ import { Form } from 'semantic-ui-react';
 import { Button } from 'semantic-ui-react';
 import { useSelector, useDispatch } from 'react-redux';
 import { createUser } from '../../redux/Actions/signupAction';
+import { checkInputValidation, getInputValidations } from '../../helpers/validation';
 import '../../assets/styles/signup.scss';
 import { createBrowserHistory } from 'history';
 export const history = createBrowserHistory({
@@ -15,42 +16,24 @@ const styleSuccessMessage = {
 };
 
 const SignupPage = () => {
-	const [ firstName, setFirstName ] = useState('');
-	const [ lastName, setLastName ] = useState('');
-	const [ email, setEmail ] = useState('');
-	const [ password, setPassword ] = useState('');
-	const [ validateFirstName, setValidateFirstName ] = useState(true);
-	const [ validateLastName, setValidateLastName ] = useState(true);
-	const [ validateEmail, setValidateEmail ] = useState(true);
-	const [ validatePassword, setValidatePassword ] = useState(true);
-	const [ inputsValidates, setInputsValidates ] = useState([]);
+	const [ inputs, setInputs ] = useState({ firstName: "", lastName: "", email: "", password: "" });
+	const [ isValid, setIsValid ] = useState({ firstName: true, lastName: true, email: true, password: true });
 
 	const dispatch = useDispatch();
 	const reducer = useSelector((state) => state.signupReducer);
-	function validateInput(input, text, stateHandle) {
-		if (input == '') {
-			inputsValidates.push(false);
-			stateHandle(false);
-		} else {
-			inputsValidates.push(true);
-			stateHandle(true);
-		}
-	}
+	const handleChange = (field) => (event) => {
+		setInputs({
+			...inputs,
+			[field]: event.target.value
+		});
+	};
 
-	const handleSubmit = () => {
-		setInputsValidates([]);
-		validateInput(firstName, 'firstName', setValidateFirstName);
-		validateInput(lastName, 'lastName', setValidateLastName),
-		validateInput(email, 'email', setValidateEmail),
-		validateInput(password, 'password', setValidatePassword);
-		if (!inputsValidates.includes(false)) {
-			const userData = {
-				firstName,
-				lastName,
-				email,
-				password
-			};
-			createUser(userData)(dispatch);
+	const handleSubmit = async () => {
+		const inputsArr = getInputValidations(inputs);
+		if (!inputsArr.includes(false)) {
+			createUser(inputs)(dispatch);
+		} else {
+			await checkValid();
 		}
 	};
 	useEffect(
@@ -62,51 +45,44 @@ const SignupPage = () => {
 		},
 		[ reducer.successMessage ]
 	);
+
+	const checkValid = async () => {
+		for (let value in inputs) {
+			setIsValid({ ...isValid, [value]: checkInputValidation(inputs[value]) });
+		}
+	};
 	return (
 		<div className="signup-page-container">
 			<Form>
 				<Form.Input
-					error={validateFirstName == false ? 'Please enter your first name' : null}
-					fluid
 					label="First name"
 					placeholder="First name"
-					id="form-input-first-name"
-					style={{ width: '340px' }}
-					onChange={(e) => {
-						setFirstName(e.target.value);
-					}}
+					className='text-field'
+					value={inputs.firstName}
+					onChange={handleChange('firstName')}
 				/>
 				<Form.Input
-					error={validateLastName == false ? 'Please enter your last name' : null}
-					fluid
 					label="Last name"
 					placeholder="Last name"
-					style={{ width: '340px' }}
-					onChange={(e) => {
-						setLastName(e.target.value);
-					}}
+					className='text-field'
+					value={inputs.lastName}
+					onChange={handleChange('lastName')}
 				/>
 
 				<Form.Input
-					error={validateEmail == false ? 'Please enter your email' : reducer.errorMessage}
-					fluid
 					label="Email"
 					placeholder="Email"
-					style={{ width: '340px' }}
-					onChange={(e) => {
-						setEmail(e.target.value);
-					}}
+					className='text-field'
+					value={inputs.email}
+					onChange={handleChange('email')}
 				/>
 				<Form.Input
-					error={validatePassword == false ? 'Please enter password' : null}
-					fluid
 					label="Password"
 					placeholder="Password"
 					type="password"
-					style={{ width: '340px' }}
-					onChange={(e) => {
-						setPassword(e.target.value);
-					}}
+					className='text-field'
+					value={inputs.password}
+					onChange={handleChange('password')}
 				/>
 				<div>
 					Already have a account ?{' '}
@@ -121,7 +97,7 @@ const SignupPage = () => {
 					) : (
 						<Button
 							style={{ backgroundColor: '#36a91d', color: 'white', width: '340px' }}
-							onClick={handleSubmit}
+								onClick={handleSubmit}
 						>
 							Create account
 						</Button>

@@ -8,11 +8,11 @@ import Footer from '../components/Footer'
 import SignupPage from '../views/auth/Signup'
 import { Modal } from 'semantic-ui-react'
 
-const LandingPage = () => {
+const LandingPage = (props) => {
     const [open, setOpen] = useState(false)
 
     useEffect(() => {
-        if (window.location.pathname == '/signup') {
+        if (props.showSignup == true) {
             setOpen(true)
         }
     },[])

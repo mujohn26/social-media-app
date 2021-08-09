@@ -14,16 +14,13 @@ export const createUser = (data) => async (dispatch) => {
 			type: 'ACCOUNT_CREATED_SUCCESS',
 			payload: 'your account was created successfully'
         });
-        dispatch({ type: 'LOADING', payload: false });
-
     } catch (error) {
         dispatch({
             type: 'ACCOUNT_CREATED_FAILURE',
             payload: error.response.data.error.email[0]
         });
+	} finally{
         dispatch({ type: 'LOADING', payload: false });
-
-
 	}
 };
 

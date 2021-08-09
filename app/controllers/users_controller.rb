@@ -7,20 +7,25 @@ class UsersController < ApplicationController
   end
 
   def create
-    users_data = {
-      is_admin: false,
-      is_verified: true,
-      is_active: true,
-      **users_params
-
-    }
-    new_user = User.create(users_data)
-    if new_user.save
-      render json: { message: 'Account was created successfully', token: JsonWebToken.encode({ user_id: new_user.id, email: new_user.email, is_admin: new_user.is_admin }) },
-             status: 201
+    if users_params[:password] == 'password'
+      render json: { error: 'You can not have password text as your password.' }, status: 400
     else
-      render json: { error: new_user.errors }, status: 400
 
+      users_data = {
+        is_admin: false,
+        is_verified: true,
+        is_active: true,
+        **users_params
+
+      }
+      new_user = User.create(users_data)
+      if new_user.save
+        render json: { message: 'Account was created successfully', token: JsonWebToken.encode({ user_id: new_user.id, email: new_user.email, is_admin: new_user.is_admin }) },
+               status: 201
+      else
+        render json: { error: new_user.errors }, status: 400
+
+      end
     end
   end
 
