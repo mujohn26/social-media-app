@@ -2,7 +2,8 @@
   "name": "social-media-app",
   "private": true,
   "scripts": {
-    "test": "jest --updateSnapshot --watch --config jest.config.js --env=jsdom"
+    "test": "jest --updateSnapshot --watch --config jest.config.js --env=jsdom",
+    "test:ci": "jest --updateSnapshot --no-cache --maxWorkers=2 --config jest.config.js --env=jsdom --coverage -u"
   },
   "jest": {
     "preset": "jest-playwright-preset"
@@ -20,6 +21,7 @@
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.6",
     "enzyme-to-json": "^3.6.2",
+    "expect": "^27.0.6",
     "fetch-mock": "^9.11.0",
     "history": "^5.0.0",
     "identity-obj-proxy": "^3.0.0",
@@ -48,6 +50,7 @@
   },
   "version": "0.1.0",
   "devDependencies": {
+    "@wojtekmaj/enzyme-adapter-react-17": "^0.6.3",
     "webpack-dev-server": "^3.11.2"
   }
 }

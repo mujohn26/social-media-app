@@ -3,7 +3,7 @@ import { Form } from 'semantic-ui-react';
 import { Button } from 'semantic-ui-react';
 import { useSelector, useDispatch } from 'react-redux';
 import { createUser } from '../../redux/Actions/signupAction';
-import { checkInputValidation, getInputValidations } from '../../helpers/validation';
+import { getInputValidations } from '../../helpers/validation';
 import '../../assets/styles/signup.scss';
 import { createBrowserHistory } from 'history';
 export const history = createBrowserHistory({
@@ -16,8 +16,8 @@ const styleSuccessMessage = {
 };
 
 const SignupPage = () => {
-	const [ inputs, setInputs ] = useState({ firstName: "", lastName: "", email: "", password: "" });
-	const [ isValid, setIsValid ] = useState({ firstName: true, lastName: true, email: true, password: true });
+	const [ inputs, setInputs ] = useState({ firstName: '', lastName: '', email: '', password: '' });
+	const [ buttonClicked, setButtonClicked ] = useState(false);
 
 	const dispatch = useDispatch();
 	const reducer = useSelector((state) => state.signupReducer);
@@ -29,11 +29,10 @@ const SignupPage = () => {
 	};
 
 	const handleSubmit = async () => {
+		setButtonClicked(true);
 		const inputsArr = getInputValidations(inputs);
-		if (!inputsArr.includes(false)) {
+		if (!inputsArr.includes(true)) {
 			createUser(inputs)(dispatch);
-		} else {
-			await checkValid();
 		}
 	};
 	useEffect(
@@ -45,42 +44,46 @@ const SignupPage = () => {
 		},
 		[ reducer.successMessage ]
 	);
-
-	const checkValid = async () => {
-		for (let value in inputs) {
-			setIsValid({ ...isValid, [value]: checkInputValidation(inputs[value]) });
-		}
-	};
 	return (
 		<div className="signup-page-container">
 			<Form>
 				<Form.Input
+					error={buttonClicked == true && inputs.firstName == '' ? 'Please enter first name' : null}
 					label="First name"
 					placeholder="First name"
-					className='text-field'
+					className="text-field"
+					data-test="first-name-field"
 					value={inputs.firstName}
 					onChange={handleChange('firstName')}
 				/>
 				<Form.Input
+					error={buttonClicked == true && inputs.lastName == '' ? 'Please enter last name' : null}
 					label="Last name"
 					placeholder="Last name"
-					className='text-field'
+					className="text-field"
+					data-test="last-name-field"
 					value={inputs.lastName}
 					onChange={handleChange('lastName')}
 				/>
 
 				<Form.Input
+					error={
+						buttonClicked == true && inputs.email == '' ? 'Please enter your email' : reducer.errorMessage
+					}
 					label="Email"
 					placeholder="Email"
-					className='text-field'
+					className="text-field"
+					id="email-field"
 					value={inputs.email}
 					onChange={handleChange('email')}
 				/>
 				<Form.Input
+					error={buttonClicked == true && inputs.password == '' ? 'Please enter password' : null}
 					label="Password"
 					placeholder="Password"
 					type="password"
-					className='text-field'
+					className="text-field"
+					data-test="password-field"
 					value={inputs.password}
 					onChange={handleChange('password')}
 				/>
@@ -96,8 +99,9 @@ const SignupPage = () => {
 						<div style={{ textAlign: 'center' }}>Loading...</div>
 					) : (
 						<Button
+							id="submit-btn"
 							style={{ backgroundColor: '#36a91d', color: 'white', width: '340px' }}
-								onClick={handleSubmit}
+							onClick={handleSubmit}
 						>
 							Create account
 						</Button>
@@ -106,7 +110,7 @@ const SignupPage = () => {
 				<div />
 
 				<div style={styleSuccessMessage}>
-					{reducer.successMessage !== undefined ? lastName : ''} {reducer.successMessage}
+					{reducer.successMessage !== undefined ? inputs.lastName : ''} {reducer.successMessage}
 				</div>
 			</Form>
 		</div>

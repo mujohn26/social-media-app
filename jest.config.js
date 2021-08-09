@@ -37,9 +37,10 @@ module.exports = {
         '!**/src/index.js',
         '!**/jest.config.js',
         '!**/src/theme.js',
-        '!**/src/reducers/index.js',
+        '!**/social-media-app/app/javascript/redux/store/**',
         '!**/src/store/index.js',
-        '!**/config/webpack/test.js'
+        '!**/config/**',
+        '!**/social-media-app/public/packs/**'
     ], 
 
 
@@ -56,6 +57,9 @@ module.exports = {
         '/__tests__',
         '/src/styles/',
         'server.js',
+        'social-media-app/public/packs/',
+        '/social-media-app/app/javascript/redux/store/',
+        ' social-media-app/app/javascript/packs '
     ],
     // An object that configures minimum threshold enforcement for coverage results
     // coverageThreshold: undefined,
@@ -160,6 +164,10 @@ module.exports = {
     testPathIgnorePatterns: [
         '/node_modules/',
         '__tests__/notification.pane/__mocks__/socket.io-client.js',
+        '/config/',
+        'social-media-app/public/packs/',
+        '/social-media-app/app/javascript/redux/store/',
+         'social-media-app/app/javascript/packs '
     ],
 
     // The regexp pattern or array of patterns that Jest uses to detect test files
@@ -183,7 +191,8 @@ module.exports = {
     // An array of regexp pattern strings that are matched against all source file paths, matched files will skip transformation
     transformIgnorePatterns: [
         '/node_modules/',
-        '    __tests__/notification.pane/__mocks__/socket.io-client.js',
+        '__tests__/notification.pane/__mocks__/socket.io-client.js',
+        '/config/'
     ],
 
     // An array of regexp pattern strings that are matched against all modules before the module loader will automatically return a mock for them
