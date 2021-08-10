@@ -3,7 +3,7 @@ import { Form } from 'semantic-ui-react';
 import { Button } from 'semantic-ui-react';
 import { useSelector, useDispatch } from 'react-redux';
 import { createUser } from '../../redux/Actions/signupAction';
-import { getInputValidations } from '../../helpers/validation';
+import { isValidInputs } from '../../helpers/validation';
 import '../../assets/styles/signup.scss';
 import { createBrowserHistory } from 'history';
 export const history = createBrowserHistory({
@@ -17,7 +17,7 @@ const styleSuccessMessage = {
 
 const SignupPage = () => {
 	const [ inputs, setInputs ] = useState({ firstName: '', lastName: '', email: '', password: '' });
-	const [ buttonClicked, setButtonClicked ] = useState(false);
+	const [ showEmptyFieldErrors, setShowEmptyFieldErrors ] = useState(false);
 
 	const dispatch = useDispatch();
 	const reducer = useSelector((state) => state.signupReducer);
@@ -29,9 +29,8 @@ const SignupPage = () => {
 	};
 
 	const handleSubmit = async () => {
-		setButtonClicked(true);
-		const inputsArr = getInputValidations(inputs);
-		if (!inputsArr.includes(true)) {
+		setShowEmptyFieldErrors(true);
+		if (isValidInputs(inputs)) {
 			createUser(inputs)(dispatch);
 		}
 	};
@@ -44,49 +43,36 @@ const SignupPage = () => {
 		},
 		[ reducer.successMessage ]
 	);
+
+	const fields = [
+		{ label: 'First name', id: 'firstName', dataId: 'first-name-field', type: 'text' },
+		{ label: 'Last name', id: 'lastName', dataId: 'last-name', type: 'text' },
+		{ label: 'Email', id: 'email', dataId: 'email-field', type: 'text' },
+		{ label: 'password', id: 'password', dataId: 'password-field', type: 'password' }
+	];
 	return (
 		<div className="signup-page-container">
-			<Form>
-				<Form.Input
-					error={buttonClicked == true && inputs.firstName == '' ? 'Please enter first name' : null}
-					label="First name"
-					placeholder="First name"
-					className="text-field"
-					data-test="first-name-field"
-					value={inputs.firstName}
-					onChange={handleChange('firstName')}
-				/>
-				<Form.Input
-					error={buttonClicked == true && inputs.lastName == '' ? 'Please enter last name' : null}
-					label="Last name"
-					placeholder="Last name"
-					className="text-field"
-					data-test="last-name-field"
-					value={inputs.lastName}
-					onChange={handleChange('lastName')}
-				/>
-
-				<Form.Input
-					error={
-						buttonClicked == true && inputs.email == '' ? 'Please enter your email' : reducer.errorMessage
-					}
-					label="Email"
-					placeholder="Email"
-					className="text-field"
-					id="email-field"
-					value={inputs.email}
-					onChange={handleChange('email')}
-				/>
-				<Form.Input
-					error={buttonClicked == true && inputs.password == '' ? 'Please enter password' : null}
-					label="Password"
-					placeholder="Password"
-					type="password"
-					className="text-field"
-					data-test="password-field"
-					value={inputs.password}
-					onChange={handleChange('password')}
-				/>
+			<Form onSubmit={handleSubmit}>
+				{fields.map((field, index) => {
+					return (
+						<Form.Input
+							error={
+								showEmptyFieldErrors == true && inputs[field.id] == '' ? (
+									`${field.label} is empty`
+								) : null}							
+							
+							className="text-field"
+							placeholder={field.label}
+							label={field.label}
+							value={inputs[field.id]}
+							onChange={handleChange(field.id)}
+							data-test={field.dataId}
+							type={field.type}
+							showEmptyFieldErrors={showEmptyFieldErrors}
+							key={index}
+						/>
+					);
+				})}
 				<div>
 					Already have a account ?{' '}
 					<a href="/login" style={{ color: '#36a91d', marginLeft: '10px' }}>
@@ -98,11 +84,7 @@ const SignupPage = () => {
 					{reducer.isLoading == true ? (
 						<div style={{ textAlign: 'center' }}>Loading...</div>
 					) : (
-						<Button
-							id="submit-btn"
-							style={{ backgroundColor: '#36a91d', color: 'white', width: '340px' }}
-							onClick={handleSubmit}
-						>
+						<Button id="submit-btn" style={{ backgroundColor: '#36a91d', color: 'white', width: '340px' }}>
 							Create account
 						</Button>
 					)}
