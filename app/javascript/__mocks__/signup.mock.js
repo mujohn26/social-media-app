@@ -13,7 +13,7 @@ export const props = {
 	},
 	
 	handleSubmit:jest.fn(),
-	handleChange:jest.fn(),
+	handleChange:jest.fn()
 	
 };
 
