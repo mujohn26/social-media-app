@@ -1,16 +1,14 @@
 
 import React from "react";
 import { Route, Switch } from "react-router-dom";
-import HomePage from './HomePage'
-import About from './About'
+import LandingPage from '../views/LandingPage'
 
 function App() {
     return (
             <div>
             <Switch>
-                <Route exact path="/" component={HomePage} />
-                <Route exact path="/about" component={About} />
-
+                <Route exact path="/" component={LandingPage} />
+                <Route exact path="/signup" component={() => { return <LandingPage showSignup={true}/> }} />
             </Switch>
             </div>
     );

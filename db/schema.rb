@@ -10,7 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_02_100604) do
+ActiveRecord::Schema.define(version: 2021_08_03_005335) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
   create_table "chats", force: :cascade do |t|
     t.string "message"
@@ -22,8 +25,8 @@ ActiveRecord::Schema.define(version: 2021_08_02_100604) do
 
   create_table "comments", force: :cascade do |t|
     t.string "comment"
-    t.integer "post_id"
-    t.integer "user_id"
+    t.bigint "post_id"
+    t.bigint "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["post_id"], name: "index_comments_on_post_id"
@@ -31,8 +34,8 @@ ActiveRecord::Schema.define(version: 2021_08_02_100604) do
   end
 
   create_table "likes", force: :cascade do |t|
-    t.integer "post_id"
-    t.integer "user_id"
+    t.bigint "post_id"
+    t.bigint "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["post_id"], name: "index_likes_on_post_id"
@@ -41,7 +44,7 @@ ActiveRecord::Schema.define(version: 2021_08_02_100604) do
 
   create_table "posts", force: :cascade do |t|
     t.string "description"
-    t.integer "user_id"
+    t.bigint "user_id"
     t.boolean "is_shared"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -56,11 +59,11 @@ ActiveRecord::Schema.define(version: 2021_08_02_100604) do
     t.string "profile_picture"
     t.boolean "is_admin"
     t.string "is_verified"
-    t.string "boolean"
     t.boolean "is_active"
     t.string "token"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "password"
   end
 
 end
