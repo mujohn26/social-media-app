@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   root 'pages#index'
   get '/users', to: 'users#index'
   post '/auth/signup', to: 'users#create'
+  post '/auth/login', to: 'authentication#authenticate_user'
   match '*path', to: 'pages#index', via: :all
   
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html

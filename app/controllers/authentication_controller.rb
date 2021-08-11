@@ -1,19 +1,19 @@
 class AuthenticationController < ApplicationController
+  skip_before_action :verify_authenticity_token
   def authenticate_user
-    user = User.find_for_database_authentication(email: params[:email])
-    if user.valid_password?(params[:password])
-      render json: payload(user)
+    user = User.find_by(email: params[:email])
+    if user && user.authenticate(params[:password])
+      render json: payload(user), status: 200
     else
-      render json: { errors: 'Invalid email/password' }, status: :unauthorized
+      render json: { error: 'Invalid email/password' }, status: :unauthorized
     end
   end
 
-  def payload
-    return nil unless user && user.id
-
+  def payload(user)
     {
-      auth_token: JsonWebToken.encode({ user_id: user.id }),
-      user: { id: user.id, email: user.email }
+      message: 'User logged in successfully',
+      token: JsonWebToken.encode({ user_id: user.id, email: user.email, is_admin: user.is_admin }),
+      data: { id: user.id, email: user.email, lastName: user.last_name }
     }
   end
 end
