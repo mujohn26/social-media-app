@@ -41,6 +41,7 @@ module.exports = {
         '!**/src/store/index.js',
         '!**/config/**',
         '!**/social-media-app/public/packs/**'
+
     ], 
 
 
@@ -57,9 +58,13 @@ module.exports = {
         '/__tests__',
         '/src/styles/',
         'server.js',
-        'social-media-app/public/packs/',
+        '/social-media-app/public/packs/',
         '/social-media-app/app/javascript/redux/store/',
-        ' social-media-app/app/javascript/packs '
+        '/social-media-app/app/javascript/packs',
+        '/social-media-app/app/javascript/channels',
+        '/social-media-app/babel.config.js',
+        '/social-media-app/postcss.config.js'
+
     ],
     // An object that configures minimum threshold enforcement for coverage results
     // coverageThreshold: undefined,
@@ -165,9 +170,13 @@ module.exports = {
         '/node_modules/',
         '__tests__/notification.pane/__mocks__/socket.io-client.js',
         '/config/',
-        'social-media-app/public/packs/',
+        '/social-media-app/public/packs/',
         '/social-media-app/app/javascript/redux/store/',
-         'social-media-app/app/javascript/packs '
+        '/social-media-app/app/javascript/packs',
+        '/social-media-app/app/javascript/channels',
+        '/social-media-app/babel.config.js',
+        '/social-media-app/postcss.config.js'
+
     ],
 
     // The regexp pattern or array of patterns that Jest uses to detect test files
