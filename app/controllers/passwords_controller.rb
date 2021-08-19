@@ -14,14 +14,12 @@ class PasswordsController < ApplicationController
 
   def reset
     token = request.headers['token']
-    print("=-=--=----=-#{token}")
     return render json: { error: 'Token not found' }, status: :bad_request if request.headers['token'].blank?
     user = User.find_by(reset_password_token: token)
-    print("=-=--=----=-#{user}")
     if user.present? && user.password_token_valid?
       if params[:password].blank? || (params[:password] == 'password')
         return render json: { error: 'Please enter a valid password' },
-                      status: 200
+                      status: 400
       end
 
       update_password(user)

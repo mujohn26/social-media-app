@@ -88,7 +88,7 @@ const ForgotPassword = (props) => {
 					{reducer.errorMessage !== undefined ? (<>{reducer.errorMessage}</>):''} 
                 </div> 
                 
-				<div style={styleSuccessMessage}>
+				<div style={styleSuccessMessage} className="forgot-success-message">
 					{reducer.successMessage !== undefined ? inputs.lastName : ''} {reducer.successMessage}
 				</div>
                 </Form>
