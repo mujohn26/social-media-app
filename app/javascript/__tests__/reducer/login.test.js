@@ -12,7 +12,7 @@ describe('Login Reducer', () => {
 			successMessage: loginUserSuccess.payload,
 		});
 	});
-    it('throw error when user is not logged', () => {
+    it('throw error when loggin fails', () => {
         const getState = loginReducer({}, loginUserFailure);
         expect(getState).toEqual({
             errorMessage: loginUserFailure.payload,

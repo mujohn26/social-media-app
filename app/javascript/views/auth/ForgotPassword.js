@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { Form } from 'semantic-ui-react';
 import { Button } from 'semantic-ui-react';
 import { useSelector, useDispatch } from 'react-redux';
-import { LoginUser } from '../../redux/Actions/loginAction';
+import { ForgotPasswordAction } from '../../redux/Actions/forgotPasswordAction';
 import { isValidInputs } from '../../helpers/validation';
-import '../../assets/styles/signup.scss';
+import '../../assets/styles/password.scss';
 import { createBrowserHistory } from 'history';
 export const history = createBrowserHistory({
 	forceRefresh: true
@@ -15,57 +15,44 @@ const styleSuccessMessage = {
 	marginTop: '5%'
 };
 
-const forgotPasswordStye = {
-	marginTop: '10px',
-	cursor: 'pointer',
-	color: '#36a91d'
-
-}
-
-const LoginPage = (props) => {
-	const [ inputs, setInputs ] = useState({  email: props.email, password: '' });
+const ForgotPassword = (props) => {
+	const [ inputs, setInputs ] = useState({  email: ''});
 	const [ showEmptyFieldErrors, setShowEmptyFieldErrors ] = useState(false);
 
 	const dispatch = useDispatch();
-	const reducer = useSelector((state) => state.loginReducer);
+	const reducer = useSelector((state) => state.forgotPasswordReducer);
 	const handleChange = (field) => (event) => {
 		setInputs({
 			...inputs,
 			[field]: event.target.value
 		});
 	};
-
-	function redirect() {
-		history.push('/signup');
-		location.reload();
-	}
-
-	function forgotPassword(params) {
-		history.push('/forgot');
-		location.reload();
-	}
 	const handleSubmit = async () => {
 		setShowEmptyFieldErrors(true);
 		if (isValidInputs(inputs)) {
-			LoginUser(inputs)(dispatch);
+			ForgotPasswordAction(inputs)(dispatch);
 		}
 	};
 	useEffect(
 		() => {
-			if (reducer.successMessage !== undefined) {
-				history.push('/posts');
-				location.reload();
-			}
+
 		},
 		[ reducer.successMessage ]
 	);
 
 	const fields = [
 		{ label: 'Email', id: 'email', dataId: 'email-field', type: 'text' },
-		{ label: 'password', id: 'password', dataId: 'password-field', type: 'password' }
 	];
 	return (
-		<div className="login-page-container">
+        <div className="forgot-page-container">
+            <div className='page-title'>
+                Forgot password
+            </div>
+            <div className='page-description'>
+                When you fill in your registered email address, you will be sent instructions on how to reset your password.
+            </div>
+            <div className='form-container'>
+
 			<Form onSubmit={handleSubmit}>
 				{fields.map((field, index) => {
 					return (
@@ -87,37 +74,28 @@ const LoginPage = (props) => {
 						/>
 					);
 				})}
-
-				<div style={forgotPasswordStye} onClick={forgotPassword}>
-					Forgot password
-				</div>
-
 				<div className="button-container">
 					{reducer.isLoading == true ? (
 						<div style={{ textAlign: 'center' }}>Loading...</div>
 					) : (
 						<Button id="submit-btn" style={{ backgroundColor: '#36a91d', color: 'white', width: '340px' }}>
-							Login
+							Send link
 						</Button>
 					)}
 				</div>
-
-					<div style={{marginTop:'15px'}}>
-					Not a member ?{' '}
-					<a onClick={redirect} style={{ color: '#36a91d', marginLeft: '10px' }}>
-						Signup now
-					</a>
-				</div>
+				<div />
 				<div style={{color:'red', marginTop:'4%'}}>
-					{reducer.errorMessage !== undefined ? (<>{reducer.errorMessage} please try again !</>):''} 
+					{reducer.errorMessage !== undefined ? (<>{reducer.errorMessage}</>):''} 
                 </div> 
                 
-				<div style={styleSuccessMessage}>
+				<div style={styleSuccessMessage} className="forgot-success-message">
 					{reducer.successMessage !== undefined ? inputs.lastName : ''} {reducer.successMessage}
 				</div>
-			</Form>
+                </Form>
+                            </div>
+
 		</div>
 	);
 };
 
-export default LoginPage;
+export default ForgotPassword;
