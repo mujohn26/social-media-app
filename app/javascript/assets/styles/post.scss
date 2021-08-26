@@ -1,0 +1,73 @@
+.post-page-container{
+display: flex;
+flex-direction: column;
+}
+.upper-section{
+  height: 50px;
+  width: 100%;
+}
+.middle-section{
+  display: flex;
+  flex-direction: row;
+}
+.side-nav-section{
+  width: 25%;
+  min-height: 150px;
+}
+.posts-container{
+  width: 50%;
+  min-height: 850px;
+  display: flex;
+  flex-direction: column;
+
+}
+.right-nav-section{
+  width: 25%;
+  min-height: 150px;
+}
+.create-post-container{
+  height: 150px;
+  border: 2px dotted #36A91D;
+
+}
+.post-card-container{
+  margin-top: 3%;
+}
+.one-post-card{
+  width: 680px;
+  height: 292px;
+  border: 2px dotted #04033D ;
+  border-radius: 0px 0px 10px 10px;
+  margin: auto;
+}
+
+.one-card-upper-section{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.left-section{
+  display:flex;
+  flex-direction: row;
+  width: 30%;
+}
+.profile-image-container{
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  background-color: #36A91D;
+  color: white;
+  font-weight: bold;
+  text-align: center;
+
+}
+.profile-pic-text{
+  margin-top: 30%;
+  font-size: 20px;
+}
+
+.user-name-section{
+  margin-top: 7%;
+  margin-left: 5%;
+  font-weight: bold;
+}

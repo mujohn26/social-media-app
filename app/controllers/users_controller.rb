@@ -20,7 +20,7 @@ class UsersController < ApplicationController
       }
       new_user = User.create(users_data)
       if new_user.save
-        render json: { message: 'Account was created successfully', token: JsonWebToken.encode({ user_id: new_user.id, email: new_user.email, is_admin: new_user.is_admin }) },
+        render json: { message: 'Account was created successfully', token: JsonWebToken.encode({ user_id: new_user.id, email: new_user.email, is_admin: new_user.is_admin, time: Time.now.utc }) },
                status: 201
       else
         render json: { error: new_user.errors }, status: 400

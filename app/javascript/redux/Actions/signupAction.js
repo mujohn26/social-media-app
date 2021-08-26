@@ -3,7 +3,7 @@ import axios from 'axios';
 export const createUser = (data) => async (dispatch) => {
 	dispatch({ type: 'LOADING', payload: true });
 	try {
-		const response =  await axios.post(`/auth/signup`, {
+		const response =  await axios.post(`/api/auth/signup`, {
 			first_name: data.firstName,
 			last_name: data.lastName,
 			email: data.email,

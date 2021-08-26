@@ -1,9 +1,12 @@
 
 import React from "react";
 import { Route, Switch } from "react-router-dom";
+import PrivateRoute from '../components/auth/PrivateRoute'
 import LandingPage from '../views/LandingPage'
 import ForgotPassword from '../views/auth/ForgotPassword'
 import ResetPassword from '../views/auth/ResetPassword'
+
+import PostPage from '../views/PostPage'
 
 function App() {
     return (
@@ -14,6 +17,7 @@ function App() {
                 <Route exact path="/login" component={() => { return <LandingPage page='login' /> }} />
                 <Route exact path="/forgot" component={ForgotPassword} />
                 <Route exact path="/reset" component={ResetPassword} />
+                <Route exact path='/posts' component={PostPage}/>
             </Switch>
             </div>
     );
