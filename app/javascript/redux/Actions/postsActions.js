@@ -4,7 +4,6 @@ export const getAllPostsAction = () => async (dispatch) => {
   	dispatch({ type: 'LOADING', payload: true });
 	try {
         const response = await axios.get('/api/posts');
-        console.log("=-=-=-=-=-==-", response.data)
 		dispatch({
 			type: 'GET_POST_SUCCESSFULLY',
 			payload: response.data
