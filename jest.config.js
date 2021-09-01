@@ -14,6 +14,10 @@ module.exports = {
     // cacheDirectory: "/private/var/folders/7p/7vmcfrkx2fj6qqny7ry9f7yw0000gn/T/jest_dx",
 
     // Automatically clear mock calls and instances between every test
+//       transform: {
+//     '^.+\\.(ts|tsx)?$': 'ts-jest',
+//     "^.+\\.(js|jsx)$": "babel-jest",
+//   }
     clearMocks: true,
     // preset: 'jest-playwright-jsdom',
     preset: 'jest-playwright-preset',

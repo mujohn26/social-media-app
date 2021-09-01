@@ -27,11 +27,11 @@ flex-direction: column;
 }
 .create-post-container{
   height: 150px;
-  border: 2px dotted #36A91D;
+   margin: auto; 
 
 }
 .post-card-container{
-  margin-top: 3%;
+  margin-top: 5%;
 }
 .one-post-card{
   width: 680px;
@@ -70,4 +70,46 @@ flex-direction: column;
   margin-top: 7%;
   margin-left: 5%;
   font-weight: bold;
+}
+.create-post-card-container{
+  display: flex;
+  flex-direction: column;
+ 
+}
+
+.create-post-upper-card{
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  width: 682px;
+  height: 56px;
+  display: flex;
+  flex-direction: row;
+}
+.create-post-lower-card{
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  width: 682px;
+  height: 90px;
+  border-radius: 0px 0px 20px 20px;
+  padding-top: 10px;
+  text-indent: 10px;
+  margin-top: 1px;
+
+}
+.create-post-button-container{
+  width: 50%;
+  border-right: 2px solid rgba(0, 0, 0, 0.12);
+  display: flex;
+  flex-direction: row;
+}
+.create-post-button-container div:nth-child(1){
+margin-left: 10%;
+margin-top: 3%;
+cursor: pointer;
+}
+::placeholder {
+  color: #A4A0A0;
+  font-size: 13px;
+
+}
+textarea:focus{
+  outline: none;
 }

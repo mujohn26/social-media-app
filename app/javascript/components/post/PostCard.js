@@ -1,20 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import verifyToken from '../../helpers/verifyToken';
 import { Card, Image } from 'semantic-ui-react';
 import Fromnow from 'react-fromnow';
-
 import '../../assets/styles/post.scss';
 
 const PostCard = (props) => {
-	const decodeToken = () => {
-		const data = verifyToken(props.token);
-		setDecodedToken(data);
-	};
 
 	useEffect(() => {}, [ props ]);
 
 	return (
-		<div>
+		<div> 
 			{props.data !== undefined ? (
 				<Card style={{ width: '680px', maxHeight: '292px', margin: 'auto' }}>
 					<Card.Content>

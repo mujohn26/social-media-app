@@ -23,7 +23,13 @@ class PostsController < ApplicationController
     }
     new_post = Post.create(posts_data)
     if new_post.save
-      render json: { message: 'Post was published successfully', loggedIn: true },
+      render json: { message: 'Post was published successfully', new_post: new_post.as_json(
+        include: {
+          user: {
+            only: %i[first_name last_name email]
+          }
+        }
+      ), loggedIn: true },
              status: 201
     else
       render json: { error: new_post.errors }, status: 400

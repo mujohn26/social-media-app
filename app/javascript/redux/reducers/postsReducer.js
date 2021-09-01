@@ -1,15 +1,28 @@
-import { act } from "react-dom/test-utils";
+import { act } from "react-dom/cjs/react-dom-test-utils.development";
 
 const postsReducer = (state = {}, action) => {
     switch (action.type) {
         case "GET_POST_SUCCESSFULLY":
             return {
                 ...state,
-                data: action.payload.data,
+                postsData: action.payload.data,
                 loggedIn: action.payload.loggedIn,
-                token:action.payload.token
             };
         case "GET_POSTS_FAILURE":
+            return {
+                ...state,
+                errorMessage: action.payload.errors,
+                loggedIn:action.payload.loggedIn
+            };
+        case "CREATE_POST_SUCCESSFULLY":
+            console.log('=-=--==--=-=--=-', action.data)
+            return {
+                ...state,
+                successMessage: action.payload.data,
+                loggedIn: action.payload.loggedIn,
+                postsData: action.data
+            };
+        case "CREATE_POSTS_FAILURE":
             return {
                 ...state,
                 errorMessage: action.payload.errors,
@@ -20,6 +33,12 @@ const postsReducer = (state = {}, action) => {
                 ...state,
                 isLoading: action.payload,
             };
+        case "LOADING_CREATE":
+            return {
+                ...state,
+                isLoadingCreate: action.payload,
+            };
+        
 
         default:
             return state;
