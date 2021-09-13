@@ -3,7 +3,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import { getAllPostsAction } from '../redux/Actions/postsActions';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import LoaderComponent from '../components/Loader';
-import { Loader } from 'semantic-ui-react';
 import { useHistory } from 'react-router-dom';
 import PostCard from '../components/post/PostCard';
 import CreatePost from '../components/post/CreatePost';
@@ -17,13 +16,13 @@ const scrollStyle = {
 const PostPage = () => {
 	const history = useHistory();
 	const dispatch = useDispatch();
-	const [ postsData, setPostsData ] = useState([]);
-	const [ start, setStart ] = useState(0);
-	const [ end, setEnd ] = useState(5);
+	const [postsDataArr, setPostsDataArr] = useState([])
+	const [postsData, setPostsData] = useState([]);
+	const [page,setPage]=useState(1)
 	const [ hasMore, setHasMore ] = useState(true);
 	const reducer = useSelector((state) => state.postsReducer);
-	useEffect(() => {
-		getAllPostsAction()(dispatch);
+	useEffect(async() => {
+		await getAllPostsAction(page)(dispatch);
 	}, []);
 	useEffect(
 		() => {
@@ -34,28 +33,28 @@ const PostPage = () => {
 		[ reducer.loggedIn ]
 	);
 	const fetchMoreData = () => {
-		if (postsData.length >= reducer.postsData.length) {
-			setHasMore(false);
-			return;
-		}
-		setTimeout(() => {
-			setStart(start + 5);
-			setEnd(end + 5);
-
-			const concatedPostsData = postsData.concat(reducer.postsData.slice(start, end));
-			setPostsData(concatedPostsData);
+		// if (postsData.length >= reducer.postsData.length) {
+		// 	setHasMore(false);
+		// 	return;
+		// }
+		setTimeout( async() => {
+			await getAllPostsAction(page)(dispatch);
 		}, 1500);
 	};
 
 	useEffect(() => {
-			if (reducer.postsData !== undefined) {
-				setPostsData(reducer.postsData.slice(start, end));
+		if (reducer.postsData !== undefined) {
+			setPage(page+1)
+			setPostsData(reducer.postsData);
+			reducer.postsData.map((value) => {
+				postsDataArr.push(value)
+			})
 			}
 	},[reducer.postsData])
 
 	return (
 		<div>
-			{reducer.isLoading == true || reducer.postsData == undefined ? (
+			{reducer.isLoading == true || postsDataArr == undefined ? (
 				<LoaderComponent />
 			) : (
 				<div className="post-page-container">
@@ -64,24 +63,24 @@ const PostPage = () => {
 						<div className="side-nav-section" />
 						<div className="posts-container">
 							<div className="create-post-container">
-								<CreatePost data={reducer.postsData} />
+								<CreatePost data={reducer.postDataArr} />
 							</div>
 							<div className="post-card-container">
 								<InfiniteScroll
-									dataLength={postsData.length}
+									dataLength={postsDataArr.length}
 									next={fetchMoreData}
 									hasMore={hasMore}
 									loader={<div style={scrollStyle}>Loading...</div>}
 									endMessage={
 										<p style={scrollStyle}>
-											<b>You have viewed it all</b>
+											{/* <b>You have viewed it all</b> */}
 										</p>
 									}
 								>
-									{postsData.map((value, index) => (
+									{postsDataArr.map((value, index) => (
 										<div key={index} style={{ marginTop: '3%' }}>
 											<PostCard data={value} token={reducer.token} />
-										</div>
+										</div> 
 									))}
 								</InfiniteScroll>
 							</div>

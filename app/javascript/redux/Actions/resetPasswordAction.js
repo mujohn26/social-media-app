@@ -7,7 +7,7 @@ export const ResetPasswordAction = ({password, resetToken}) => async (dispatch) 
 			'Content-Type': 'application/json',
 			token: `${resetToken}`
 		};
-        const response = await axios.patch(`/api/auth/reset`, {password:password}, { headers });
+        const response = await axios.patch(`/reset`, {password:password}, { headers });
 		dispatch({
 			type: 'RESET_PASSWORD_SUCCESS',
 			payload: response.data.message

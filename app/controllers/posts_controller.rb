@@ -1,9 +1,8 @@
 class PostsController < ApplicationController
-  before_action :authenticate_request!
-  skip_before_action :verify_authenticity_token
+  before_action :authenticate_user!
 
-  def index
-    posts = Post.includes(:user).order(:created_at).reverse_order
+  def index 
+    posts = Post.paginate(page:request.params[:page], per_page: 5).order('created_at DESC')
     render json: { message: 'Posts were retrieved successfully', data: posts.as_json(
       include: {
         user: {
@@ -16,10 +15,9 @@ class PostsController < ApplicationController
 
   def create
     posts_data = {
-      user_id: @auth_token[:user_id],
+      user_id: current_user.id,
       is_shared: false,
       **posts_params
-
     }
     new_post = Post.create(posts_data)
     if new_post.save

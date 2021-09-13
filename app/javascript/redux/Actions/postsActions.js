@@ -1,9 +1,9 @@
 import axios from 'axios';
 
-export const getAllPostsAction = () => async (dispatch) => {
-    dispatch({ type: 'LOADING', payload: true });
-	try {
-        const response = await axios.get('/api/posts');
+export const getAllPostsAction = (page) => async (dispatch) => {
+    // dispatch({ type: 'LOADING', payload: true });
+    try {       
+        const response = await axios.get(`/api/posts?page=${page}`);
 		dispatch({
 			type: 'GET_POST_SUCCESSFULLY',
 			payload: response.data

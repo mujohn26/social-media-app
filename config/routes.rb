@@ -1,8 +1,17 @@
 Rails.application.routes.draw do
+  devise_for :users
+  # , skip: {registrations:"registrations", sessions:"sessions"}
+  devise_scope :user do
+    post 'sign_up', to: 'users/registrations#create'
+    post 'sign_in', to: 'users/sessions#create'
+    post 'forgot', to: 'users/passwords#create'
+    patch 'reset', to: 'users/passwords#reset'
+  end
   post 'auth_user' => 'authentication#authenticate_user'
   root 'pages#index'
   get '/users', to: 'users#index'
-  post '/api/auth/signup', to: 'users#create'
+  # post '/api/auth/signup', to: 'users#create'
+  # post 'sign_up', to: 'users#create'
   post '/api/auth/login', to: 'authentication#authenticate_user'
   get '/api/auth/cookie', to: 'authentication#get_cookie'
   post '/api/auth/forgot', to: 'passwords#forgot'

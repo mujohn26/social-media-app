@@ -6,6 +6,7 @@ const postsReducer = (state = {}, action) => {
             return {
                 ...state,
                 postsData: action.payload.data,
+                postDataArr:action.payload.data,
                 loggedIn: action.payload.loggedIn,
             };
         case "GET_POSTS_FAILURE":
@@ -15,7 +16,6 @@ const postsReducer = (state = {}, action) => {
                 loggedIn:action.payload.loggedIn
             };
         case "CREATE_POST_SUCCESSFULLY":
-            console.log('=-=--==--=-=--=-', action.data)
             return {
                 ...state,
                 successMessage: action.payload.data,
