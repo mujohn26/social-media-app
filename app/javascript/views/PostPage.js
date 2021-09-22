@@ -63,7 +63,7 @@ const PostPage = () => {
 						<div className="side-nav-section" />
 						<div className="posts-container">
 							<div className="create-post-container">
-								<CreatePost data={reducer.postDataArr} />
+								<CreatePost data={postsDataArr} />
 							</div>
 							<div className="post-card-container">
 								<InfiniteScroll

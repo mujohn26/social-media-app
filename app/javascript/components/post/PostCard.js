@@ -18,7 +18,7 @@ const PostCard = (props) => {
 									{props.data.profileImage !== undefined ? (
 										<Image floated="right" size="mini" src="/images/avatar/large/jenny.jpg" />
 									) : (
-										<div className="profile-pic-text">{props.data.user.last_name[0]}</div>
+										<div className="profile-pic-text">{props.data.user.last_name[0]} {props.data.user.first_name[0]}</div>
 									)}
 								</div>
 								<div className="user-name-section">{props.data.user.last_name} {props.data.user.first_name}</div>

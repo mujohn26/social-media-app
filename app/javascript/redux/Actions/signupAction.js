@@ -14,7 +14,7 @@ export const createUser = (data) => async (dispatch) => {
 			type: 'ACCOUNT_CREATED_SUCCESS',
 			payload: 'your account was created successfully'
         });
-    } catch (error) {
+	} catch (error) {
         dispatch({
             type: 'ACCOUNT_CREATED_FAILURE',
             payload: error.response.data.error.email[0]

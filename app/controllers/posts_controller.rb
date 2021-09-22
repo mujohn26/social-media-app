@@ -1,5 +1,6 @@
 class PostsController < ApplicationController
   before_action :authenticate_user!
+  skip_before_action :verify_authenticity_token
 
   def index 
     posts = Post.paginate(page:request.params[:page], per_page: 5).order('created_at DESC')

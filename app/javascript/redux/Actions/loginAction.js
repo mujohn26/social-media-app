@@ -3,11 +3,10 @@ import axios from 'axios';
 export const LoginUser = (data) => async (dispatch) => {
 	dispatch({ type: 'LOADING', payload: true });
 	try {
-		const response =  await axios.post(`/sign_in`, {
-			user:{email: data.email,
+		const response =  await axios.post(`/api/auth/login`, {
+		email: data.email,
 				password: data.password,
 				remember_me:true
-			}
 		});
 		dispatch({
 			type: 'USER_LOGIN_SUCCESS',

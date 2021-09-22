@@ -1,6 +1,4 @@
-# class UsersController < ApplicationController
-# class UsersController < Devise::SessionsController
-class Users::RegistrationsController < Devise::RegistrationsController
+class UsersController < ApplicationController
   before_action :authenticate_request!, only: [:index]
   skip_before_action :verify_authenticity_token
   

@@ -15,6 +15,7 @@ const LandingPage = (props) => {
     const [email, setEmail] = useState('')
 
     const [openSignup, openLogin, AuthModal] = useAuthModal(props.page)
+    
 
     return (
         <>

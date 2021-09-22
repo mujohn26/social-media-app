@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Users::SessionsController < Devise::SessionsController
-  prepend_before_action :require_no_authentication, :only => [:new]
+  prepend_before_action :require_no_authentication, only: [:new]
   # before_action :configure_sign_in_params, only: [:create]
 
   # GET /resource/sign_in
@@ -11,10 +11,11 @@ class Users::SessionsController < Devise::SessionsController
 
   # POST /resource/sign_in
   def create
-        user = User.find_by_email(sign_in_params[:email])
+    user = User.find_by_email(sign_in_params[:email])
 
     if user && user.valid_password?(sign_in_params[:password])
       @current_user = user
+      render json: { message: "User logged in successfully'" }, status: 200
     else
       render json: { errors: { 'email or password' => ['is invalid'] } }, status: :unprocessable_entity
     end
