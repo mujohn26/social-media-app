@@ -1,0 +1,51 @@
+
+.comment-card-container{
+display: flex;
+flex-direction: row;
+margin-top: 2%;
+margin-left: 3%;
+}
+.comment-wrapper{
+  width: 580px; 
+  max-height: 192px;
+  border-radius: 4px;
+  margin-left: 1%;
+  background-color: #dddee0;
+
+}
+.one-card-upper-section{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.left-section{
+  display:flex;
+  flex-direction: row;
+  width: 30%;
+}
+.comment-image-container{
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background-color: #36A91D;
+  color: white;
+  font-weight: bold;
+  text-align: center;
+
+
+}
+.comment-pic-text{
+  margin-top: 20%;
+  font-size: 10px;
+}
+
+.comment-name-section{
+  margin-top: 5%;
+  margin-left: 5%;
+  font-weight: bold;
+  font-size: 11px;
+}
+
+
+
+

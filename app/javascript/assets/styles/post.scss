@@ -63,7 +63,7 @@ flex-direction: column;
 }
 .profile-pic-text{
   margin-top: 30%;
-  font-size: 20px;
+  font-size: 13px;
 }
 
 .user-name-section{
@@ -112,4 +112,43 @@ cursor: pointer;
 }
 textarea:focus{
   outline: none;
+}
+
+.right-section-icons{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  width: 30%;
+  height: 100%;
+}
+.right-section-icons div{
+  cursor: pointer;
+}
+
+.right-section-icons img{
+  margin-top: 35%;
+}
+
+.left-section-icons{
+  display: flex;
+  flex-direction: row;
+
+}
+.left-section-icons img{
+ margin-left: 50%;
+ margin-top: 35%;
+}
+.icons-section{
+  display: flex;
+  flex-direction: row;
+}
+.icons-text{
+color:#6B6A6A;
+font-size: 14px;
+margin-left: 3px;
+margin-top: 10px;
+}
+
+.like{
+  margin-left: 50%;
 }

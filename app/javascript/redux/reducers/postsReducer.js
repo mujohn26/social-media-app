@@ -1,4 +1,3 @@
-import { act } from "react-dom/cjs/react-dom-test-utils.development";
 
 const postsReducer = (state = {}, action) => {
     switch (action.type) {
@@ -18,9 +17,10 @@ const postsReducer = (state = {}, action) => {
         case "CREATE_POST_SUCCESSFULLY":
             return {
                 ...state,
-                successMessage: action.payload.data,
+                successMessage: action.payload.message,
                 loggedIn: action.payload.loggedIn,
-                postsData: action.data
+                postsData: action.data,
+                postDataArr: action.data
             };
         case "CREATE_POSTS_FAILURE":
             return {

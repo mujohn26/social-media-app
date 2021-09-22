@@ -1,5 +1,6 @@
-class PasswordsController < ApplicationController
+ class PasswordsController < ApplicationController
   skip_before_action :verify_authenticity_token
+
   def forgot
     return render json: { error: 'Email was not provided' }, status: :bad_request if params[:email].blank?
 

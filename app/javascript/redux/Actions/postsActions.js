@@ -24,6 +24,7 @@ export const createPostAction = (description, data) => async (dispatch) => {
         const response = await axios.post('/api/posts',{
 			description: description,
         });
+        console.log('=-=-=-=-=--=-', response.data.new_post)
 		dispatch({
 			type: 'CREATE_POST_SUCCESSFULLY',
             payload: response.data,

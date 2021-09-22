@@ -3,6 +3,8 @@ import { TextArea, Button } from 'semantic-ui-react';
 import { useSelector, useDispatch } from 'react-redux';
 import {createPostAction} from '../../redux/Actions/postsActions'
 import NoteIcon from '../../assets/images/note.png';
+import { useHistory } from 'react-router-dom';
+
 
 const styleSuccessMessage = {
   color: '#36a91d',
@@ -13,6 +15,7 @@ const styleSuccessMessage = {
 
 
 const CreatePost = (props) => {
+	const history = useHistory()
   const [description, setDescription] = useState("")
   const textInput = useRef(null);
   
@@ -27,7 +30,8 @@ const CreatePost = (props) => {
   const createPost = () => {
     if(description!==""){
     createPostAction(description, props.data)(dispatch)}
-  }
+	}
+	
 	useEffect(
 		() => {
 			if (state.loggedIn == false) {
@@ -37,15 +41,15 @@ const CreatePost = (props) => {
 		[ state.loggedIn ]
   );
   
-	// useEffect(
-	// 	() => {
-	// 		if (state.data.successMessage !== undefined) {
-	// 			history.push('/posts');
-	// 			location.reload();
-	// 		}
-	// 	},
-	// 	[ state.successMessage ]
-	// );
+	useEffect(
+		() => {
+			if (state.successMessage !== undefined) {
+				history.push('/posts');
+				location.reload();
+			}
+		},
+		[ state.successMessage ]
+	);
 	return (
 		<div className="create-post-card-container">
 			<div className="create-post-upper-card">

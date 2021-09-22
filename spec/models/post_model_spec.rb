@@ -1,9 +1,14 @@
 require 'rails_helper'
 
 RSpec.describe PostsController, type: :model do
-  user = User.create({ id: 1, email: 'test1@gmail.com', first_name: 'test', last_name: 'app', password: 'test@123',
+    before do
+    User.destroy_all
+    Post.destroy_all
+    end
+  user = User.create({ id: 123, email: 'test22@gmail.com', first_name: 'test', last_name: 'app', password: 'test@123',
                        is_admin: false })
-  post = Post.new(description: 'testing post model', user_id: user.id, is_shared: false, created_at: '2021-08-27',
+  user.save!
+  post = Post.new(description: 'testing post model', user:user, is_shared: false, created_at: '2021-08-27',
                   updated_at: '2021-08-27')
   it 'valid post attributes' do
     expect(post).to be_valid

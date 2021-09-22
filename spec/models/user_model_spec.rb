@@ -1,6 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe UsersController, type: :model do
+    before do
+    User.destroy_all
+  end
   user = User.new( email: 'test@gmail.com', first_name: 'test', last_name: 'app', password: 'test@123' )
   it 'valid user attributes' do
     expect(user).to be_valid

@@ -57,6 +57,7 @@ const ForgotPassword = (props) => {
 				{fields.map((field, index) => {
 					return (
 						<Form.Input
+							disabled={false}
 							error={
 								showEmptyFieldErrors == true && inputs[field.id] == '' ? (
 									`${field.label} is empty`

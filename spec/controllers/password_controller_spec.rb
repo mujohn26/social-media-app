@@ -1,6 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe PasswordsController, type: :controller do
+    before do
+    User.destroy_all
+    set_cookies
+  end
+
   describe '#forgot password' do
     it 'Throws error when email is not provided' do
       user = post(:forgot)
@@ -30,13 +35,14 @@ RSpec.describe PasswordsController, type: :controller do
       expect(user.status).to eq(404)
     end
 
-    fit 'Throws error when password is not provided' do
-      User.create({ email: 'test@gmail.com', first_name: 'test', last_name: 'app',
-                    reset_password_token: 'valid-token', reset_password_sent_at: Time.now.utc })
-      request.headers['token'] = 'valid-token'
-      user = post(:reset)
-      expect(JSON.parse(user.body)['error']).to eq('Invalid token, please try again')
-      expect(user.status).to eq(400)
+    it 'Throws error when password is not provided' do
+      user = User.create({ email: 'test123@gmail.com', first_name: 'test', last_name: 'app',password:'test1234@',
+                    reset_password_token: 'valid-token1', reset_password_sent_at: Time.now.utc })
+      user.save!
+      request.headers['token'] = 'valid-token1'
+      response= post(:reset)
+      expect(JSON.parse(response.body)['error']).to eq('Please enter a valid password')
+      expect(response.status).to eq(400)
     end
 
     it 'Updates user password successfully' do
