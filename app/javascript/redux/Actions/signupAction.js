@@ -3,7 +3,7 @@ import axios from 'axios';
 export const createUser = (data) => async (dispatch) => {
 	dispatch({ type: 'LOADING', payload: true });
 	try {
-		const response =  await axios.post(`/auth/signup`, {
+		const response =  await axios.post(`/api/auth/signup`, {
 			first_name: data.firstName,
 			last_name: data.lastName,
 			email: data.email,
@@ -14,7 +14,7 @@ export const createUser = (data) => async (dispatch) => {
 			type: 'ACCOUNT_CREATED_SUCCESS',
 			payload: 'your account was created successfully'
         });
-    } catch (error) {
+	} catch (error) {
         dispatch({
             type: 'ACCOUNT_CREATED_FAILURE',
             payload: error.response.data.error.email[0]

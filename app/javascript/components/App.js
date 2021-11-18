@@ -5,6 +5,8 @@ import LandingPage from '../views/LandingPage'
 import ForgotPassword from '../views/auth/ForgotPassword'
 import ResetPassword from '../views/auth/ResetPassword'
 
+import PostPage from '../views/PostPage'
+
 function App() {
     return (
             <div>
@@ -14,6 +16,7 @@ function App() {
                 <Route exact path="/login" component={() => { return <LandingPage page='login' /> }} />
                 <Route exact path="/forgot" component={ForgotPassword} />
                 <Route exact path="/reset" component={ResetPassword} />
+                <Route exact path='/posts' component={PostPage}/>
             </Switch>
             </div>
     );

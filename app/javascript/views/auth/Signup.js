@@ -98,6 +98,9 @@ const SignupPage = () => {
 				<div style={styleSuccessMessage}>
 					{reducer.successMessage !== undefined ? inputs.lastName : ''} {reducer.successMessage}
 				</div>
+				<div style={{ color: 'red' }}>
+					{reducer.errorMessage !== undefined ?<div> Email {reducer.errorMessage} </div>: ''}
+				</div>
 			</Form>
 		</div>
 	);

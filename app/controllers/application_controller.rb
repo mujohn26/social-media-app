@@ -1,23 +1,23 @@
 class ApplicationController < ActionController::Base
+  include ::ActionController::Cookies
   attr_reader :current_user
 
 
   protected
 
-  def authenticate_request!
-    unless user_id_in_token?
-      render json: { errors: ['Not authenticated1'] }, status: :unauthorized
+  def authenticate_user!
+    unless  user_id_in_token?
+      render json: { errors: 'Please login first', loggedIn:false}, status: :unauthorized
       return
     end
-    @current_user = User.find(auth_token[:user_id]) 
+    @current_user = User.find(auth_token[:user_id])
   rescue JWT::VerificationError, JWT::DecodeError
-    render json: { errors: ['Not authenticated2'] }, status: :unauthorized
+    render json: { errors: ['Invalid login'] }, status: :unauthorized
   end
-
   private
 
   def http_token
-    @http_token ||= (request.headers['Authorization'].split(' ').last if request.headers['Authorization'].present?)
+    @http_token ||= cookies.signed[:token]
   end
 
   def auth_token

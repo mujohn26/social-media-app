@@ -3,7 +3,7 @@ import axios from 'axios';
 export const ForgotPasswordAction = (data) => async (dispatch) => {
 	dispatch({ type: 'LOADING', payload: true });
 	try {
-		const response =  await axios.post(`/auth/forgot`, {
+		const response =  await axios.post(`/api/auth/forgot`, {
 			email: data.email,
         });
 		dispatch({

@@ -53,7 +53,7 @@ const LoginPage = (props) => {
 	useEffect(
 		() => {
 			if (reducer.successMessage !== undefined) {
-				history.push('/posts');
+				history.push('/posts'); 
 				location.reload();
 			}
 		},

@@ -36,6 +36,7 @@ gem 'devise'
 gem 'jwt'
 gem 'pry', '~> 0.13.1'
 gem 'rack-cors'
+gem 'will_paginate', '~> 3.1.0'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
